@@ -18,7 +18,7 @@ message SetupResponse {
 }
 
 message ReadBlockRequest {
-  int32 index = 1;                    // Index to read data from
+  repeated int32 indices = 1;         // List of indices to read data from
 }
 
 message Block {
@@ -31,13 +31,12 @@ message ReadBlockResponse {
 }
 
 message WriteBlockRequest {
-  int32 index = 1;                    // Index to write data to
-  repeated Block blocks = 2;          // List of (value, index) tuples to be written to the specified index
+  repeated int32 indices = 1;         // List of indices to write data to
+  repeated Block blocks = 2;          // List of (value, index) tuples to be written at each specified index
 }
 
 message WriteBlockResponse {
   bool success = 1;                   // Indicates whether the write operation was successful
-  string message = 2;
 }
 
 message PrintRequest {}               // Empty request for the Print RPC
