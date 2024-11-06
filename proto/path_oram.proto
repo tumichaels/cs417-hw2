@@ -1,0 +1,47 @@
+syntax = "proto3";
+package path_oram;
+
+service PathOram {
+  rpc Setup(SetupRequest) returns (SetupResponse);
+  rpc ReadBlock(ReadBlockRequest) returns (ReadBlockResponse);
+  rpc WriteBlock(WriteBlockRequest) returns (WriteBlockResponse);
+  rpc Print(PrintRequest) returns (PrintResponse);  // New Print RPC
+}
+
+message SetupRequest {
+  int32 num_layers = 1;               // Number of layers in the ORAM
+  int32 bucket_size = 2;              // Items per bucket in the ORAM
+}
+
+message SetupResponse {
+  bool success = 1;                   // Indicates whether the setup was successful
+}
+
+message ReadBlockRequest {
+  int32 index = 1;                    // Index to read data from
+}
+
+message Block {
+  int32 value = 1;                    // Value in the tuple
+  int32 index = 2;                    // Index in the tuple
+}
+
+message ReadBlockResponse {
+  repeated Block blocks = 1;          // List of (value, index) tuples at the specified index
+}
+
+message WriteBlockRequest {
+  int32 index = 1;                    // Index to write data to
+  repeated Block blocks = 2;          // List of (value, index) tuples to be written to the specified index
+}
+
+message WriteBlockResponse {
+  bool success = 1;                   // Indicates whether the write operation was successful
+  string message = 2;
+}
+
+message PrintRequest {}               // Empty request for the Print RPC
+
+message PrintResponse {
+  bool success = 1;
+}
