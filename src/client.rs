@@ -187,7 +187,7 @@ impl<'a> PathORAMHandler<'a> {
             write_block_request.blocks.extend(blocks_for_index);
         }
 
-        println!("write request: {:?}", write_block_request);
+        debug_println!("write request: {:?}", write_block_request);
     
         // Send the batched write request
         if let Err(e) = self
@@ -270,8 +270,7 @@ fn run_client(port: u16, n: i32, z: i32, rng_seed: u64) {
     let elapsed = start.elapsed().as_secs_f64();
     println!("\nsetup time taken: {:.4} seconds", elapsed);
 
-    // Warmup: 3 million read operations
-    // run_experiment(handler, n, z, rng_seed);
+    run_experiment(handler, n, z, rng_seed);
 }
 
 fn run_experiment(mut handler: PathORAMHandler<'_>, n: i32, z: i32, rng_seed: u64) {
